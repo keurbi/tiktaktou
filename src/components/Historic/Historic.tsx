@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import './Historic.css';
 
-interface HistoricProps {}
+interface HistoricProps {
+   gameHistoric : [];
+}
 
 const Historic: FC<HistoricProps> = () => (
    <div>
