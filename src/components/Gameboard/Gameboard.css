@@ -27,12 +27,12 @@
 .cell:hover {
   background-color: rgb(114, 114, 255);
 }
-
-.x-mark {
+.cell.clicked-x {
   color: #e74c3c;
+  font-weight: bold;
 }
 
-.o-mark {
+.cell.clicked-o {
   color: #3498db;
+  font-weight: bold;
 }
-
