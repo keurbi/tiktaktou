@@ -4,7 +4,9 @@ import './Historic.css';
 interface HistoricProps {}
 
 const Historic: FC<HistoricProps> = () => (
-   <div></div>
+   <div>
+      <button className='historicButton'> 0 </button>
+   </div>
 );
 
 export default Historic;

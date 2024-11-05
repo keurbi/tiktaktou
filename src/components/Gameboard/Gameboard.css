@@ -15,8 +15,8 @@
 .cell {
   width: 100px;
   height: 100px;
-  background-color: #ecf0f1;
-  border: 4px solid #2c3e50;
+  background-color: rgb(42, 39, 39);
+  border: 4px solid rgb(114, 114, 255);
   font-size: 2.5rem;
   font-weight: bold;
   cursor: pointer;
@@ -25,10 +25,9 @@
 }
 
 .cell:hover {
-  background-color: #bdc3c7;
+  background-color: rgb(114, 114, 255);
 }
 
-/* For when you add X and O markers */
 .x-mark {
   color: #e74c3c;
 }
@@ -36,3 +35,4 @@
 .o-mark {
   color: #3498db;
 }
+

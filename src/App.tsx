@@ -27,12 +27,14 @@ const WINSTREAKS = [
   [0, 4, 8],
   [2, 4, 6],]
 
+
+
   return (
     <div className="App">
       <Gamestate/>
       <Gameboard/>
       <Historic/>
-      <button></button>
+      <button className='cssreset'> RESTART</button>
     </div>
   );
 }
