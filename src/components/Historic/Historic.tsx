@@ -2,12 +2,17 @@ import React, { FC } from 'react';
 import './Historic.css';
 
 interface HistoricProps {
-   gameHistoric : [];
-}
+   moves: {
+     cells: (string | null)[];
+     player: boolean;
+     moveNumber: number;
+   }[];
+ }
 
-const Historic: FC<HistoricProps> = () => (
+const Historic: FC<HistoricProps> = (moves) => (
    <div>
       <button className='historicButton'> 0 </button>
+      {}
    </div>
 );
 

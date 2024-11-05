@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Gamestate from './components/Gamestate/Gamestate';
@@ -25,18 +25,35 @@ const WINSTREAKS = [
   [1, 4, 7],
   [2, 5, 8],
   [0, 4, 8],
-  [2, 4, 6],] 
+  [2, 4, 6],
+];
 
-const historic = [];
+const [historic, setHistoric] = useState<{
+  cells: (string | null)[];
+  player: boolean;
+  moveNumber: number;
+}[]>([]);
+
+const [cells, setCells] = useState<(string | null)[]>(Array(9).fill(null));
+const [isXNext, setIsXNext] = useState<boolean>(true);
+
+const handleReset = () => {
+  setCells(Array(9).fill(null));
+  setIsXNext(true);
+};
 
   return (
     <div className="App">
       <Gamestate/>
-      <Gameboard />
-      <Historic gameHistoric={historic}/>
-      <button className='cssreset'> RESTART</button>
+      <Gameboard 
+        cells={cells} 
+        setCells={setCells}
+        isXNext={isXNext}
+        setIsXNext={setIsXNext}
+      />
+      <Historic moves={historic}/>
+      <button className='cssreset' onClick={handleReset}> RESTART</button>
     </div>
   );
 }
-
 export default App;
