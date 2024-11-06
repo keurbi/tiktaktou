@@ -36,11 +36,23 @@ const [historic, setHistoric] = useState<{
 
 const [cells, setCells] = useState<(string | null)[]>(Array(9).fill(null));
 const [isXNext, setIsXNext] = useState<boolean>(true);
+const [isHistoric, setIsHistoric] = useState(false);
 
 const handleReset = () => {
   setCells(Array(9).fill(null));
   setIsXNext(true);
+  setIsHistoric(false);
 };
+
+const selectedMove = (move: {
+  cells: (string | null)[];
+  player: boolean;
+  moveNumber: number;
+}) => {
+  setCells(move.cells);
+  setIsXNext(move.player);
+  setIsHistoric(move.moveNumber < historic.length - 1);
+}
 
   return (
     <div className="App">
@@ -50,10 +62,10 @@ const handleReset = () => {
         setCells={setCells}
         isXNext={isXNext}
         setIsXNext={setIsXNext}
+        isHistoric={isHistoric}
       />
-      <Historic moves={historic}/>
+      <Historic moves={historic} selectedMove={selectedMove}/>
       <button className='cssreset' onClick={handleReset}> RESTART</button>
     </div>
   );
-}
-export default App;
+}export default App;
