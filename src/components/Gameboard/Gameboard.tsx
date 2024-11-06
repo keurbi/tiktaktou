@@ -1,91 +1,45 @@
-import React, { FC, useState } from 'react';
+import React from 'react';
 import './Gameboard.css';
 
 interface GameboardProps {
-  cells: (string | null)[]
-  setCells: (cells: (string | null)[]) => void
-  isXNext: boolean
-  setIsXNext: (isXNext: boolean) => void
-  isHistoric: boolean
+  cells: (string | null)[];
+  setCells: React.Dispatch<React.SetStateAction<(string | null)[]>>;
+  isXNext: boolean;
+  setIsXNext: React.Dispatch<React.SetStateAction<boolean>>;
+  isHistoric: boolean;
+  onMove: (index: number) => void;
 }
+const Gameboard: React.FC<GameboardProps> = ({ cells, isXNext, isHistoric, onMove }) => {
+  const handleClick = (index: number) => {
+    if (cells[index] || isHistoric) return;
+    onMove(index);
+  };
 
-const Gameboard: FC<GameboardProps> = ({ cells, setCells, isXNext, setIsXNext, isHistoric }) => {
-   const click = (cellId: number) => {
-      // si la cellule contient déjà une valeur, on arrête l'exécution
-      if (cells[cellId]) return;
-      const newCells = cells.slice();
-      newCells[cellId] = isXNext ? 'X' : 'O';
-      setCells(newCells);
-      setIsXNext(!isXNext);
-   }
+  const getCellClass = (value: string | null) => {
+    return value ? `cell ${value.toLowerCase()}` : 'cell';
+  };
 
-   return (
-    <div>
-      <table className='board'>
-         <tbody>
-             <tr>
-                <td 
-                  className={`cell ${cells[0] === 'X' ? 'clicked-x' : cells[0] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(0)}
-                >
-                  {cells[0]}
-                </td>
-                <td 
-                  className={`cell ${cells[1] === 'X' ? 'clicked-x' : cells[1] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(1)}
-                >
-                  {cells[1]}
-                </td>
-                <td 
-                  className={`cell ${cells[2] === 'X' ? 'clicked-x' : cells[2] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(2)}
-                >
-                  {cells[2]}
-                </td>
-             </tr>
-             <tr>
-                <td 
-                  className={`cell ${cells[3] === 'X' ? 'clicked-x' : cells[3] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(3)}
-                >
-                  {cells[3]}
-                </td>
-                <td 
-                  className={`cell ${cells[4] === 'X' ? 'clicked-x' : cells[4] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(4)}
-                >
-                  {cells[4]}
-                </td>
-                <td 
-                  className={`cell ${cells[5] === 'X' ? 'clicked-x' : cells[5] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(5)}
-                >
-                  {cells[5]}
-                </td>
-             </tr>
-             <tr>
-                <td 
-                  className={`cell ${cells[6] === 'X' ? 'clicked-x' : cells[6] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(6)}
-                >
-                  {cells[6]}
-                </td>
-                <td 
-                  className={`cell ${cells[7] === 'X' ? 'clicked-x' : cells[7] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(7)}
-                >
-                  {cells[7]}
-                </td>
-                <td 
-                  className={`cell ${cells[8] === 'X' ? 'clicked-x' : cells[8] === 'O' ? 'clicked-o' : ''}`}
-                  onClick={() => !isHistoric && click(8)}
-                >
-                  {cells[8]}
-                </td>
-             </tr>
-         </tbody>
+  return (
+    <div className="gameboard">
+      <table className="board">
+        <tbody>
+          <tr>
+            <td className={getCellClass(cells[0])} onClick={() => handleClick(0)}>{cells[0]}</td>
+            <td className={getCellClass(cells[1])} onClick={() => handleClick(1)}>{cells[1]}</td>
+            <td className={getCellClass(cells[2])} onClick={() => handleClick(2)}>{cells[2]}</td>
+          </tr>
+          <tr>
+            <td className={getCellClass(cells[3])} onClick={() => handleClick(3)}>{cells[3]}</td>
+            <td className={getCellClass(cells[4])} onClick={() => handleClick(4)}>{cells[4]}</td>
+            <td className={getCellClass(cells[5])} onClick={() => handleClick(5)}>{cells[5]}</td>
+          </tr>
+          <tr>
+            <td className={getCellClass(cells[6])} onClick={() => handleClick(6)}>{cells[6]}</td>
+            <td className={getCellClass(cells[7])} onClick={() => handleClick(7)}>{cells[7]}</td>
+            <td className={getCellClass(cells[8])} onClick={() => handleClick(8)}>{cells[8]}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
-   );
-}
-export default Gameboard;
+  );
+};export default Gameboard;

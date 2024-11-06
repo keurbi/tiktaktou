@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './Historic.css';
 
 interface HistoricProps {
@@ -6,22 +6,29 @@ interface HistoricProps {
      cells: (string | null)[];
      player: boolean;
      moveNumber: number;
-   }[],
-   selectedMove : Function;
- }
+   }[];
+   selectedMove: (move: {
+     cells: (string | null)[];
+     player: boolean;
+     moveNumber: number;
+   }) => void;
+}
 
-const Historic: FC<HistoricProps> = ({moves}, selectedMove) => (
-   <div>
-      <button className='historicButton'> 0 </button>
-      {moves.map((move) => (
-         <button 
-         key={move.moveNumber}
-         className='historicButton'
-         >
-            {move.moveNumber}
-         </button>
-      ))}
-   </div>
-);
+const Historic: React.FC<HistoricProps> = ({ moves, selectedMove }) => {
+   return (
+     <div className="historic">
+       <h3>Historique des coups</h3>
+       <ul>
+         {moves.map((move, index) => (
+           <li key={index}>
+             <button onClick={() => selectedMove(move)}>
+               {index === 0 ? '0' : `${index}`}
+             </button>
+           </li>
+         ))}
+       </ul>
+     </div>
+   );
+};
 
 export default Historic;
