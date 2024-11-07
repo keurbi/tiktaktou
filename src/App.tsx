@@ -25,13 +25,10 @@ function App() {
     [2, 4, 6],
   ];
 
-  const [historic, setHistoric] = useState<
-    {
+  const [historic, setHistoric] = useState<{
       cells: (string | null)[];
       player: boolean;
-      moveNumber: number;
-    }[]
-  >([]);
+      moveNumber: number;}[]>([]);
 
   const [cells, setCells] = useState<(string | null)[]>(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState<boolean>(true);
@@ -75,7 +72,7 @@ function App() {
   const handleMove = (index: number) => {
     if (cells[index] || isHistoric) return; // Vérifie si la case est libre et si le jeu est jouable
 
-    const nextCells = cells.slice(); // Crée une copie du tableau des cellules
+    const nextCells = cells.slice(); // copie du tableau des cellules
     nextCells[index] = isXNext ? "X" : "O"; // Place le symbole du joueur actuel
 
     const winner = verifyWin(nextCells); // Vérifie s'il y a un gagnant
