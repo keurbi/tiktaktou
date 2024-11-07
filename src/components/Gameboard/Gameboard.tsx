@@ -14,12 +14,6 @@ const Gameboard: React.FC<GameboardProps> = ({ cells, isXNext, isHistoric, onMov
     if (cells[index] || isHistoric) return;
     onMove(index);
   };
-  
-  const renderCell = (value: string | null) => {
-    if (!value) return null;
-    return <span className={`clicked-${value.toLowerCase()}`}>{value}</span>;
-  };
-
 
   return (
     <div className="gameboard">
