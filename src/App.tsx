@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Gamestate from './components/Gamestate/Gamestate';
 import Gameboard from './components/Gameboard/Gameboard';
 import Historic from './components/Historic/Historic';
 
@@ -43,7 +41,7 @@ function App() {
     setIsXNext(true);
     setIsHistoric(false);
     setHistoric([]);
-    setWinner(null);
+    setWinner(null);//reset de tout
   };
 
   const selectedMove = (move: {
@@ -51,22 +49,22 @@ function App() {
     player: boolean;
     moveNumber: number;
   }) => {
-    setCells(move.cells);
-    setIsXNext(move.player);
-    setIsHistoric(move.moveNumber < historic.length - 1);
+  setCells(move.cells);//remet l'état du board à ce moment là
+  setIsXNext(!move.player);//remet le joueur qui devait jouer à ce moment là
+  setIsHistoric(move.moveNumber < historic.length - 1);// Active mode historique
   };
 
   const verifyWin = (cells: (string | null)[]) => {
     const winningCombo = WINSTREAKS.find(streak => 
       cells[streak[0]] && 
       cells[streak[0]] === cells[streak[1]] && 
-      cells[streak[0]] === cells[streak[2]]
+      cells[streak[0]] === cells[streak[2]] //vérif si première case remplie et si les trois se correspondent
     );
     
     if (winningCombo) {
-      setIsHistoric(true);
-      setWinner(cells[winningCombo[0]]);
-      return cells[winningCombo[0]];
+      setIsHistoric(true); // bloque le jeu, je vais pas m'embêter à faire un autre fonction quand même
+      setWinner(cells[winningCombo[0]]);// state du gagnant
+      return cells[winningCombo[0]];// return le gagnant
     }
     return null;
   }
