@@ -9,7 +9,7 @@ interface GameboardProps {
   isHistoric: boolean;
   onMove: (index: number) => void;
 }
-const Gameboard: React.FC<GameboardProps> = ({ cells, isXNext, isHistoric, onMove }) => {
+const Gameboard: React.FC<GameboardProps> = ({ cells, isHistoric, onMove }) => {
   const handleClick = (index: number) => {
     if (cells[index] || isHistoric) return;
     onMove(index);

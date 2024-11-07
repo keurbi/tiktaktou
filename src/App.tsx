@@ -36,12 +36,14 @@ function App() {
   const [cells, setCells] = useState<(string | null)[]>(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState<boolean>(true);
   const [isHistoric, setIsHistoric] = useState(false);
+  const [winner, setWinner] = useState<string | null>(null);
 
   const handleReset = () => {
     setCells(Array(9).fill(null));
     setIsXNext(true);
     setIsHistoric(false);
-    setHistoric([]); // reset de l'historique
+    setHistoric([]);
+    setWinner(null);
   };
 
   const selectedMove = (move: {
@@ -54,11 +56,28 @@ function App() {
     setIsHistoric(move.moveNumber < historic.length - 1);
   };
 
+  const verifyWin = (cells: (string | null)[]) => {
+    const winningCombo = WINSTREAKS.find(streak => 
+      cells[streak[0]] && 
+      cells[streak[0]] === cells[streak[1]] && 
+      cells[streak[0]] === cells[streak[2]]
+    );
+    
+    if (winningCombo) {
+      setIsHistoric(true);
+      setWinner(cells[winningCombo[0]]);
+      return cells[winningCombo[0]];
+    }
+    return null;
+  }
+
   const handleMove = (index: number) => {
     if (cells[index] || isHistoric) return;
     
     const nextCells = cells.slice();
     nextCells[index] = isXNext ? 'X' : 'O';
+    
+    const winner = verifyWin(nextCells);
     
     const newHistoric = [...historic, {
       cells: [...nextCells],
@@ -73,7 +92,7 @@ function App() {
 
   return (
     <div className="App">
-      <Gamestate/>
+      {winner && <div className='win'>Le joueur {winner} a gagné !</div>}
       <Gameboard 
         cells={cells} 
         isXNext={isXNext}
@@ -86,5 +105,9 @@ function App() {
       <button className='cssreset' onClick={handleReset}> RESTART</button>
     </div>
   );
-}export default App;
+}
+
+
+
+export default App;
 
