@@ -70,23 +70,20 @@ function App() {
   }
 
   const handleMove = (index: number) => {
-    if (cells[index] || isHistoric) return;
-    
-    const nextCells = cells.slice();
-    nextCells[index] = isXNext ? 'X' : 'O';
-    
+    if (cells[index] || isHistoric) return; // est ce que la case est libre, et peut on jouer actuellement
+    const nextCells = cells.slice();    // copie du tableau
+    nextCells[index] = isXNext ? 'X' : 'O'; 
     const winner = verifyWin(nextCells);
-    
     const newHistoric = [...historic, {
-      cells: [...nextCells],
-      player: isXNext,
-      moveNumber: historic.length
-    }];
-    
+        cells: [...nextCells],
+        player: isXNext,
+        moveNumber: historic.length
+    }]; // ajout à l'historique
     setCells(nextCells);
     setIsXNext(!isXNext);
-    setHistoric(newHistoric);
-  };
+    setHistoric(newHistoric); // Met à jour l'état du jeu
+};
+
 
   return (
     <div className="App">
